@@ -4,7 +4,7 @@ export type Method = 'get' | 'GET'
 | 'delete' | 'DELETE'
 | 'option' | 'OPTION'
 | 'head' | 'HEAD'
-| 'patch' | 'PATCH'
+| 'patch' | 'PATCH';
 
 export interface AxiosRequestConfig {
   url: string,
