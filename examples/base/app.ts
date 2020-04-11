@@ -64,6 +64,7 @@ import axios from '../../src/index'
 
 // 5-5
 
+// 没加header content-type时，服务端不知如何处理data对象，返回的是{}。
 axios({
   method: 'post',
   url: '/base/post',
@@ -73,20 +74,19 @@ axios({
   }
 })
 
-// axios({
-//   method: 'post',
-//   url: '/base/post',
-//   headers: {
-//     'content-type': 'application/json;charset=utf-8'
-//   },
-//   data: {
-//     a: 1,
-//     b: 2
-//   }
-// })
+axios({
+  method: 'post',
+  url: '/base/post',
+  headers: {
+    'content-type': 'application/json;charset=utf-8'
+  },
+  data: {
+    a: 1,
+    b: 2
+  }
+})
 
 const arr = new Int32Array([21, 31])
-
 axios({
   method: 'post',
   url: '/base/buffer',
@@ -96,7 +96,6 @@ axios({
 
 const paramsString = 'q=URLUtils.searchParams&topic=api'
 const searchParams = new URLSearchParams(paramsString)
-
 axios({
   method: 'post',
   url: '/base/post',
