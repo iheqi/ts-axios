@@ -149,10 +149,10 @@ function registerExtendRouter () {
 
   router.get('/extend/user', function(req, res) {
     res.json({
-      code: 0,
+      code1: 0,
       message: 'ok',
       result: {
-        name: 'jack',
+        name: 'jack11',
         age: 18
       }
     })
