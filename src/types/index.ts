@@ -22,6 +22,7 @@ export interface AxiosRequestConfig {
   headers?: any
   responseType?: XMLHttpRequestResponseType // ts库定义
   timeout?: number
+  [propName: string]: any
 }
 
 export interface AxiosResponse<T = any> {
