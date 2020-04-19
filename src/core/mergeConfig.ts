@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from '../types'
-import { isPlainObject, deepMerge } from '../helpers/util'
+import { deepMerge, isPlainObject } from '../helpers/util'
 
 const strats = Object.create(null)
 
@@ -22,7 +22,7 @@ function deepMergeStrat(val1: any, val2: any): any {
     return val2
   } else if (isPlainObject(val1)) {
     return deepMerge(val1)
-  } else if (typeof val1 !== 'undefined') {
+  } else {
     return val1
   }
 }
@@ -62,7 +62,7 @@ export default function mergeConfig(
 
   function mergeField(key: string): void {
     const strat = strats[key] || defaultStrat
-    config[key] = strat[(config1[key], config2![key])]
+    config[key] = strat(config1[key], config2![key])
   }
 
   return config
