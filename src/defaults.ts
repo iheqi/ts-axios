@@ -1,3 +1,5 @@
+// 默认配置
+
 import { AxiosRequestConfig } from './types'
 import { processHeaders } from './helpers/headers'
 import { transformRequest, transformResponse } from './helpers/data'
