@@ -95,12 +95,16 @@ export interface AxiosTransformer {
 
 export interface AxiosStatic extends AxiosInstance {
   create(config?: AxiosRequestConfig): AxiosInstance
+  CancelToken: CancelTokenStatic
+  Cancel: CancelStatic
+  isCancel(value: any): boolean
 }
 
 export interface CancelToken {
   // 实例接口
-  promise: Promise<string>
-  reason?: string
+  promise: Promise<Cancel>
+  reason?: Cancel
+  throwIfRequest(): void
 }
 
 export interface Canceler {
@@ -123,4 +127,13 @@ export interface CancelTokenStatic {
   // CancelTokenStatic 则作为 CancelToken 类的类类型 wtf
   new (executor: CancelExecutor): CancelToken
   source(): CancelTokenSource
+}
+
+export interface Cancel {
+  // cancel实例接口
+  message?: string
+}
+
+export interface CancelStatic {
+  new (message?: string): Cancel
 }

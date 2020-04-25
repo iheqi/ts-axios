@@ -171,6 +171,8 @@ function registerConfigRouter () {
   })
 }
 
+
+// 取消功能
 function registerCancelRouter () {
   router.get('/cancel/get', function(req, res) {
     setTimeout(() => {
