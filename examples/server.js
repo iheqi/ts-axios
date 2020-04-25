@@ -188,7 +188,7 @@ function registerCancelRouter () {
 }
 
 function registerMoreRouter () {
-  router.get('/more/get', function(req, res) {
+  router.get('/more/get', function(req, res) { // withCredentials
     res.json(req.cookies)
   })
 
