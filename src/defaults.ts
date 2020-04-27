@@ -5,6 +5,7 @@ import { processHeaders } from './helpers/headers'
 import { transformRequest, transformResponse } from './helpers/data'
 
 const defaults: AxiosRequestConfig = {
+  // 默认配置
   method: 'get',
   timeout: 0,
   headers: {
@@ -22,7 +23,9 @@ const defaults: AxiosRequestConfig = {
     function(data: any): any {
       return transformResponse(data)
     }
-  ]
+  ],
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN'
 }
 
 const methodsNoData = ['delete', 'get', 'head', 'options']
