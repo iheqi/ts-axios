@@ -24,6 +24,7 @@ app.use(webpackDevMiddleware(compiler, {
 
 app.use(webpackHotMiddleware(compiler))
 
+// XSRF demo服务
 app.use(express.static(__dirname, {
   setHeaders (res) {
     res.cookie('XSRF-TOKEN-D', '1234abc')
@@ -188,11 +189,11 @@ function registerCancelRouter () {
 }
 
 function registerMoreRouter () {
-  router.get('/more/get', function(req, res) { // withCredentials
+  router.get('/more/get', function(req, res) { // withCredentials服务
     res.json(req.cookies)
   })
 
-  router.post('/more/upload', function(req, res) {
+  router.post('/more/upload', function(req, res) { // 上传服务
     console.log(req.body, req.files)
     res.end('upload success!')
   })

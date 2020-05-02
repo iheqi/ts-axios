@@ -55,3 +55,7 @@ export function flattenHeaders(headers: any, method: Method): any {
   })
   return headers
 }
+
+export function isFormData(val: any): val is FormData {
+  return typeof val !== 'undefined' && val instanceof FormData
+}
