@@ -24,13 +24,15 @@ export interface AxiosRequestConfig {
   timeout?: number
   transformRequest?: AxiosTransformer | AxiosTransformer[]
   transformResponse?: AxiosTransformer | AxiosTransformer[]
-  [propName: string]: any
   cancelToken?: CancelToken
   withCredentials?: boolean
   xsrfCookieName?: string
   xsrfHeaderName?: string
   onDownloadProgress?: (e: ProgressEvent) => void
   onUploadProgress?: (e: ProgressEvent) => void
+  auth?: AxiosBasicCredentials
+
+  [propName: string]: any
 }
 
 export interface AxiosResponse<T = any> {
@@ -141,4 +143,10 @@ export interface Cancel {
 
 export interface CancelStatic {
   new (message?: string): Cancel
+}
+
+export interface AxiosBasicCredentials {
+  // http auth认证数据
+  username: string
+  password: string
 }

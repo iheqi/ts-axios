@@ -19,7 +19,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       xsrfCookieName,
       xsrfHeaderName,
       onDownloadProgress,
-      onUploadProgress
+      onUploadProgress,
+      auth
     } = config
 
     const request = new XMLHttpRequest()
@@ -88,6 +89,10 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     function processHeaders(): void {
       if (isFormData(data)) {
         delete headers['Content-Type']
+      }
+
+      if (auth) {
+        headers['Authorization'] = `Basic ${btoa(`${auth.username}:${auth.password}`)}` // btoa函数：base64加密
       }
 
       if ((withCredentials || isURLSameOrigin(url!)) && xsrfCookieName) {

@@ -198,11 +198,12 @@ function registerMoreRouter () {
     res.end('upload success!')
   })
 
+  // http auth 服务
   router.post('/more/post', function(req, res) {
     const auth = req.headers.authorization
     const [type, credentials] = auth.split(' ')
     console.log(atob(credentials))
-    const [username, password] = atob(credentials).split(':')
+    const [username, password] = atob(credentials).split(':') // atob base64解密
     if (type === 'Basic' && username === 'Yee' && password === '123456') {
       res.json(req.body)
     } else {

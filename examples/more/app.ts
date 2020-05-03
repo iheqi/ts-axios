@@ -26,8 +26,7 @@ import NProgress from 'nprogress'
 //   console.log(res)
 // })
 
-// 上传下载 demo
-
+/** 上传下载 demo 开始 **/
 const instance = axios.create()
 
 function calculatePercentage(loaded: number, total: number) {
@@ -88,16 +87,20 @@ uploadEl!.addEventListener('click', e => {
 
 /** 上传下载 demo 结束 **/
 
-// axios.post('/more/post', {
-//   a: 1
-// }, {
-//   auth: {
-//     username: 'Yee',
-//     password: '123456'
-//   }
-// }).then(res => {
-//   console.log(res)
-// })
+
+/** http auth demo 开始 **/
+
+axios.post('/more/post', {
+  a: 1
+}, {
+  auth: {
+    username: 'Yee1',
+    password: '123456'
+  }
+}).then(res => {
+  console.log(res)
+})
+/** http auth demo 结束 **/
 
 
 // axios.get('/more/304').then(res => {
