@@ -1,4 +1,4 @@
-import { isDate, isObject } from './util'
+import { isDate, isObject, isURLSearchParams } from './util'
 
 interface URLOrigin {
   protocol: string
@@ -16,44 +16,56 @@ function encode(val: string): string {
     .replace(/%5D/gi, ']')
 }
 
-export function buildURL(url: string, params?: any): string {
+export function buildURL(
+  url: string,
+  params?: any,
+  paramsSerializer?: (params: any) => string
+): string {
+  // 处理url参数
+  let serializedParams // 最后拼到url的参数
   if (!params) {
     return url
   }
 
-  const parts: string[] = []
-  Object.keys(params).forEach(key => {
-    const val = params[key]
-    if (val === null || typeof val === 'undefined') {
-      return
-    }
-    let values = []
-    if (Array.isArray(val)) {
-      values = val
-      key += '[]'
-    } else {
-      values = [val]
-    }
-
-    values.forEach(val => {
-      if (isDate(val)) {
-        val = val.toISOString()
-      } else if (isObject(val)) {
-        val = JSON.stringify(val)
+  if (paramsSerializer) {
+    serializedParams = paramsSerializer(params)
+  } else if (isURLSearchParams(params)) {
+    serializedParams = params.toString()
+  } else {
+    const parts: string[] = []
+    Object.keys(params).forEach(key => {
+      const val = params[key]
+      if (val === null || typeof val === 'undefined') {
+        return
       }
-      parts.push(`${encode(key)}=${encode(val)}`)
+      let values = []
+      if (Array.isArray(val)) {
+        values = val
+        key += '[]'
+      } else {
+        values = [val]
+      }
+
+      values.forEach(val => {
+        if (isDate(val)) {
+          val = val.toISOString()
+        } else if (isObject(val)) {
+          val = JSON.stringify(val)
+        }
+        parts.push(`${encode(key)}=${encode(val)}`)
+      })
+
+      serializedParams = parts.join('&')
     })
+  }
 
-    let serializedParams = parts.join('&')
-    if (serializedParams) {
-      const markIndex = url.indexOf('#')
-      if (markIndex !== -1) {
-        url = url.slice(0, markIndex)
-      }
-      url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams
+  if (serializedParams) {
+    const markIndex = url.indexOf('#')
+    if (markIndex !== -1) {
+      url = url.slice(0, markIndex)
     }
-  })
-
+    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams
+  }
   return url
 }
 

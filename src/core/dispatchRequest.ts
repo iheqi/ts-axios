@@ -19,9 +19,9 @@ function processConfig(config: AxiosRequestConfig): void {
 }
 
 function transformURL(config: AxiosRequestConfig): string {
-  const { url, params } = config
+  const { url, params, paramsSerializer } = config
 
-  return buildURL(url!, params)
+  return buildURL(url!, params, paramsSerializer)
 }
 
 function transformResponseData(res: AxiosResponse): AxiosResponse {
@@ -30,6 +30,7 @@ function transformResponseData(res: AxiosResponse): AxiosResponse {
 }
 
 function throwIfCancellationRequested(config: AxiosRequestConfig): void {
+  // 如果请求已被取消
   if (config.cancelToken) {
     config.cancelToken.throwIfRequest()
   }
