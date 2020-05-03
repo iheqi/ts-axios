@@ -89,36 +89,36 @@ uploadEl!.addEventListener('click', e => {
 
 
 /** http auth demo 开始 **/
-
-axios.post('/more/post', {
-  a: 1
-}, {
-  auth: {
-    username: 'Yee1',
-    password: '123456'
-  }
-}).then(res => {
-  console.log(res)
-})
-/** http auth demo 结束 **/
-
-
-// axios.get('/more/304').then(res => {
-//   console.log(res)
-// }).catch((e: AxiosError) => {
-//   console.log(e.message)
-// })
-//
-// axios.get('/more/304', {
-//   validateStatus(status) {
-//     return status >= 200 && status < 400
+// axios.post('/more/post', {
+//   a: 1
+// }, {
+//   auth: {
+//     username: 'Yee1',
+//     password: '123456'
 //   }
 // }).then(res => {
 //   console.log(res)
-// }).catch((e: AxiosError) => {
-//   console.log(e.message)
 // })
-//
+/** http auth demo 结束 **/
+
+/** 自定义合法状态码 **/
+axios.get('/more/304').then(res => { // Request failed with status code 304
+  console.log(res)
+}).catch((e: AxiosError) => {
+  console.log(e.message)
+})
+
+axios.get('/more/304', {
+  validateStatus(status) {
+    return status >= 200 && status < 400
+  }
+}).then(res => {
+  console.log(res)
+}).catch((e: AxiosError) => {
+  console.log(e.message)
+})
+/** 自定义合法状态码 **/
+
 // axios.get('/more/get', {
 //   params: new URLSearchParams('a=b&c=d')
 // }).then(res => {
