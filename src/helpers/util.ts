@@ -63,3 +63,14 @@ export function isFormData(val: any): val is FormData {
 export function isURLSearchParams(val: any): val is URLSearchParams {
   return typeof val !== 'undefined' && val instanceof URLSearchParams
 }
+
+export function isAbsoluteURL(url: string): boolean {
+  // 是否绝对链接
+  return /(^[a-z][a-z\d\+\-\.]*:)?\/\//i.test(url)
+}
+
+export function combineURL(baseURL: string, relativeURL?: string): string {
+  return relativeURL
+    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '') // 细节处理，防止多个///
+    : baseURL
+}
