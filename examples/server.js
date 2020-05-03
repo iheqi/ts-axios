@@ -218,6 +218,7 @@ function registerMoreRouter () {
     res.end()
   })
 
+  // 静态方法拓展
   router.get('/more/A', function(req, res) {
     res.end('A')
   })
